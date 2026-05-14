@@ -14,6 +14,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
 
+  /* ── Header ── */
   header {
     background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
     border-bottom: 1px solid var(--border);
@@ -27,28 +28,26 @@
   .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 6px; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-  .nav-link {
-    padding: .4rem 1rem; border-radius: 8px; border: 1px solid var(--border);
-    background: var(--surface); color: var(--muted); font-size: .85rem;
-    text-decoration: none; transition: all .2s; white-space: nowrap;
-  }
-  .nav-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-
+  /* ── API Key Banner ── */
   .api-banner {
     background: #7c2d12; border: 1px solid #ea580c; color: #fed7aa;
     padding: .75rem 2rem; font-size: .875rem; display: flex; align-items: center; gap: .5rem;
   }
   .api-banner code { background: rgba(0,0,0,.3); padding: 2px 6px; border-radius: 4px; font-size: .8rem; }
 
+  /* ── Layout ── */
   main { padding: 1.5rem 2rem; max-width: 1600px; margin: 0 auto; }
 
+  /* ── Category nav ── */
   .cat-nav { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
   .cat-btn {
     padding: .4rem 1rem; border-radius: 9999px; border: 1px solid var(--border);
-    background: var(--surface); color: var(--muted); font-size: .8rem; cursor: pointer; transition: all .2s;
+    background: var(--surface); color: var(--muted); font-size: .8rem; cursor: pointer;
+    transition: all .2s;
   }
   .cat-btn:hover, .cat-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
+  /* ── Loading spinner ── */
   .loading {
     display: flex; align-items: center; justify-content: center;
     gap: 1rem; padding: 4rem; color: var(--muted); font-size: 1rem;
@@ -57,6 +56,7 @@
     border-radius: 50%; animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  /* ── Category section ── */
   .cat-section { margin-bottom: 2.5rem; }
   .cat-header {
     display: flex; align-items: center; gap: .75rem;
@@ -65,6 +65,7 @@
   .cat-header h2 { font-size: 1.05rem; font-weight: 600; }
   .cat-badge { background: var(--surface); color: var(--muted); font-size: .7rem; padding: 2px 8px; border-radius: 9999px; border: 1px solid var(--border); }
 
+  /* ── Metric cards grid ── */
   .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
 
   .metric-card {
@@ -91,9 +92,11 @@
   .change-pill.neutral { background: rgba(148,163,184,.1); color: var(--muted); }
 
   .mini-chart { margin-top: .75rem; height: 50px; }
+
   .card-desc { font-size: .7rem; color: var(--muted); margin-top: .5rem; line-height: 1.4; display: none; }
   .metric-card:hover .card-desc { display: block; }
 
+  /* ── Modal ── */
   .modal-overlay {
     display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7);
     z-index: 200; align-items: center; justify-content: center; padding: 1.5rem;
@@ -101,7 +104,7 @@
   .modal-overlay.open { display: flex; }
   .modal {
     background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
-    padding: 1.5rem; max-width: 700px; width: 100%; max-height: 80vh; overflow-y: auto;
+    padding: 1.5rem; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto;
     position: relative;
   }
   .modal-close {
@@ -115,8 +118,9 @@
   .stat-box { background: var(--bg); border-radius: 8px; padding: .75rem; }
   .stat-box .stat-label { font-size: .7rem; color: var(--muted); margin-bottom: .25rem; }
   .stat-box .stat-val { font-size: 1.3rem; font-weight: 700; }
-  .full-chart-wrap { height: 220px; position: relative; }
+  .full-chart { height: 280px; }
 
+  /* ── Refresh button ── */
   .refresh-btn {
     padding: .5rem 1.25rem; background: var(--accent); color: #fff; border: none;
     border-radius: 8px; font-size: .85rem; cursor: pointer; font-weight: 500; transition: opacity .2s;
@@ -124,6 +128,7 @@
   .refresh-btn:hover { opacity: .85; }
   .refresh-btn:disabled { opacity: .5; cursor: not-allowed; }
 
+  /* ── Error state ── */
   .error-banner {
     background: rgba(239,68,68,.1); border: 1px solid var(--red); border-radius: 8px;
     padding: 1rem 1.5rem; color: #fca5a5; margin-bottom: 1.5rem; font-size: .875rem;
@@ -145,12 +150,9 @@
       Federal Reserve Economic Data (FRED) · Last 4 Quarters
     </div>
   </div>
-  <div style="display:flex;align-items:center;gap:1rem">
-    <a href="/charts/" class="nav-link">📈 YoY Charts</a>
-    <div class="header-meta">
-      <div><span class="status-dot"></span><span id="status-text">Loading…</span></div>
-      <div id="last-fetched" style="margin-top:.2rem"></div>
-    </div>
+  <div class="header-meta">
+    <div><span class="status-dot"></span><span id="status-text">Loading…</span></div>
+    <div id="last-fetched" style="margin-top:.2rem"></div>
   </div>
 </header>
 
@@ -178,6 +180,7 @@
   <div id="dashboard" style="display:none"></div>
 </main>
 
+<!-- Detail Modal -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal" id="modal">
     <button class="modal-close" onclick="closeModalDirect()">✕</button>
@@ -187,8 +190,9 @@
 
 <script>
 let allData = {};
-let charts = {};
+let charts = {};  // track mini charts for cleanup
 
+// ── Fetch data ──────────────────────────────────────────────────────────────
 async function loadData(forceRefresh = false) {
   const btn = document.getElementById('refresh-btn');
   btn.disabled = true;
@@ -201,11 +205,14 @@ async function loadData(forceRefresh = false) {
     const url = `/api/summary/${forceRefresh ? '?refresh=true' : ''}`;
     const resp = await fetch(url);
     const json = await resp.json();
+
     if (json.status !== 'ok') throw new Error(json.message || 'API error');
+
     allData = json.data;
     renderDashboard(json.by_category, json.categories);
     document.getElementById('status-text').textContent = `${Object.keys(allData).length} series loaded`;
     document.getElementById('last-fetched').textContent = `Updated ${new Date().toLocaleTimeString()}`;
+
   } catch (err) {
     document.getElementById('error-container').innerHTML =
       `<div class="error-banner">❌ ${err.message}. Check your FRED API key and try again.</div>`;
@@ -218,7 +225,9 @@ async function loadData(forceRefresh = false) {
   }
 }
 
+// ── Render dashboard ──────────────────────────────────────────────────────
 function renderDashboard(byCategory, categories) {
+  // Destroy existing mini-charts
   Object.values(charts).forEach(c => c.destroy());
   charts = {};
 
@@ -226,11 +235,13 @@ function renderDashboard(byCategory, categories) {
   dash.innerHTML = '';
 
   const orderedCats = categories.filter(c => byCategory[c]);
+
   orderedCats.forEach(cat => {
     const series = byCategory[cat];
     const section = document.createElement('div');
     section.className = 'cat-section';
     section.dataset.cat = cat;
+
     section.innerHTML = `
       <div class="cat-header">
         <h2>${categoryEmoji(cat)} ${cat}</h2>
@@ -241,9 +252,13 @@ function renderDashboard(byCategory, categories) {
     dash.appendChild(section);
 
     const grid = section.querySelector('.cards-grid');
-    series.forEach(s => grid.appendChild(buildCard(s)));
+    series.forEach(s => {
+      const card = buildCard(s);
+      grid.appendChild(card);
+    });
   });
 
+  // Render mini sparklines after DOM is ready
   setTimeout(() => renderMiniCharts(), 50);
 }
 
@@ -254,8 +269,14 @@ function buildCard(s) {
 
   const trendClass = s.trend === 'up' ? 'up' : s.trend === 'down' ? 'down' : 'neutral';
   const trendArrow = s.trend === 'up' ? '▲' : s.trend === 'down' ? '▼' : '—';
-  const yoyStr = s.yoy_pct != null ? `${s.yoy_pct >= 0 ? '+' : ''}${s.yoy_pct.toFixed(2)}% YoY` : 'N/A YoY';
-  const popStr = s.pop_pct != null ? `${s.pop_pct >= 0 ? '+' : ''}${s.pop_pct.toFixed(2)}% vs prev` : '';
+
+  const yoyStr = s.yoy_pct != null
+    ? `${s.yoy_pct >= 0 ? '+' : ''}${s.yoy_pct.toFixed(2)}% YoY`
+    : 'N/A YoY';
+  const popStr = s.pop_pct != null
+    ? `${s.pop_pct >= 0 ? '+' : ''}${s.pop_pct.toFixed(2)}% vs prev`
+    : '';
+
   const valueFormatted = formatValue(s.latest_value, s.prefix, s.suffix);
 
   card.innerHTML = `
@@ -273,32 +294,40 @@ function buildCard(s) {
     <canvas class="mini-chart" id="mini-${s.series_id}"></canvas>
     <div class="card-desc">${s.description}</div>
   `;
+
   return card;
 }
 
 function renderMiniCharts() {
-  Object.entries(allData).forEach(([sid, s]) => {
-    const canvas = document.getElementById(`mini-${sid}`);
+  Object.values(allData).forEach(s => {
+    const canvas = document.getElementById(`mini-${s.series_id}`);
     if (!canvas || !s.observations || s.observations.length < 2) return;
+
+    // Take last 16 points for sparkline
     const obs = s.observations.slice(-16);
+    const labels = obs.map(o => o.date);
+    const values = obs.map(o => o.value);
+
     const ctx = canvas.getContext('2d');
-    if (charts[`mini-${sid}`]) charts[`mini-${sid}`].destroy();
-    charts[`mini-${sid}`] = new Chart(ctx, {
+    if (charts[s.series_id]) charts[s.series_id].destroy();
+
+    charts[s.series_id] = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: obs.map(o => o.date),
+        labels,
         datasets: [{
-          data: obs.map(o => o.value),
-          borderColor: s.color,
+          data: values,
+          borderColor: s.meta.color || '#3b82f6',
           borderWidth: 1.5,
           pointRadius: 0,
           fill: true,
-          backgroundColor: hexAlpha(s.color, 0.08),
+          backgroundColor: hexAlpha(s.meta.color || '#3b82f6', 0.08),
           tension: 0.4,
         }]
       },
       options: {
-        responsive: true, maintainAspectRatio: false, animation: false,
+        responsive: true, maintainAspectRatio: false,
+        animation: false,
         plugins: { legend: { display: false }, tooltip: { enabled: false } },
         scales: { x: { display: false }, y: { display: false } },
       }
@@ -306,63 +335,66 @@ function renderMiniCharts() {
   });
 }
 
+// ── Modal ─────────────────────────────────────────────────────────────────
 async function openModal(seriesId) {
   const s = allData[seriesId];
   if (!s) return;
 
   document.getElementById('modal-overlay').classList.add('open');
+
+  // Destroy previous modal chart
   if (charts['modal']) { charts['modal'].destroy(); delete charts['modal']; }
 
   const obs = s.observations || [];
-  const yoyVal = s.yoy_pct != null ? `${s.yoy_pct >= 0 ? '+' : ''}${s.yoy_pct.toFixed(2)}%` : 'N/A';
-  const popVal = s.pop_pct != null ? `${s.pop_pct >= 0 ? '+' : ''}${s.pop_pct.toFixed(2)}%` : 'N/A';
+  const latest = obs[obs.length - 1] || {};
+  const prev = obs[obs.length - 2] || {};
+
+  const yoyVal = latest.yoy_pct != null ? `${latest.yoy_pct >= 0 ? '+' : ''}${latest.yoy_pct.toFixed(2)}%` : 'N/A';
+  const popVal = latest.pop_pct != null ? `${latest.pop_pct >= 0 ? '+' : ''}${latest.pop_pct.toFixed(2)}%` : 'N/A';
 
   document.getElementById('modal-content').innerHTML = `
-    <h3 style="color:${s.color}">${s.name}</h3>
-    <div class="modal-meta">${s.description} · Series: <code style="font-size:.75rem">${seriesId}</code> · ${s.units}</div>
+    <h3 style="color:${s.meta?.color || '#3b82f6'}">${s.name}</h3>
+    <div class="modal-meta">${s.description} · Series ID: <code style="font-size:.75rem">${seriesId}</code> · ${s.units}</div>
     <div class="modal-stats">
       <div class="stat-box">
-        <div class="stat-label">Latest (${formatDate(s.latest_date)})</div>
-        <div class="stat-val" style="color:${s.color}">${formatValue(s.latest_value, s.prefix, s.suffix)}</div>
+        <div class="stat-label">Latest (${formatDate(latest.date)})</div>
+        <div class="stat-val" style="color:${s.meta?.color || '#3b82f6'}">${formatValue(latest.value, s.prefix, s.suffix)}</div>
       </div>
       <div class="stat-box">
         <div class="stat-label">Year-over-Year</div>
-        <div class="stat-val" style="color:${s.yoy_pct >= 0 ? 'var(--green)' : 'var(--red)'}">${yoyVal}</div>
+        <div class="stat-val ${latest.yoy_pct >= 0 ? 'up' : 'down'}" style="color:${latest.yoy_pct >= 0 ? 'var(--green)' : 'var(--red)'}">${yoyVal}</div>
       </div>
       <div class="stat-box">
         <div class="stat-label">Period-over-Period</div>
-        <div class="stat-val" style="color:${s.pop_pct >= 0 ? 'var(--green)' : 'var(--red)'}">${popVal}</div>
+        <div class="stat-val" style="color:${latest.pop_pct >= 0 ? 'var(--green)' : 'var(--red)'}">${popVal}</div>
       </div>
     </div>
-    <div class="full-chart-wrap">
-      <canvas id="modal-chart"></canvas>
-    </div>
+    <canvas class="full-chart" id="modal-chart"></canvas>
     <div style="font-size:.7rem;color:var(--muted);margin-top:.75rem">
-      ${obs.length} observations · Source: Federal Reserve Bank of St. Louis (FRED)
+      Showing ${obs.length} observations. Source: Federal Reserve Bank of St. Louis (FRED).
     </div>
   `;
 
+  // Render full chart
   setTimeout(() => {
-    const canvas = document.getElementById('modal-chart');
-    if (!canvas) return;
-    charts['modal'] = new Chart(canvas.getContext('2d'), {
+    const ctx = document.getElementById('modal-chart').getContext('2d');
+    charts['modal'] = new Chart(ctx, {
       type: 'line',
       data: {
         labels: obs.map(o => o.date),
         datasets: [{
           label: s.name,
           data: obs.map(o => o.value),
-          borderColor: s.color,
+          borderColor: s.meta?.color || '#3b82f6',
           borderWidth: 2,
           pointRadius: obs.length > 30 ? 0 : 3,
           fill: true,
-          backgroundColor: hexAlpha(s.color, 0.1),
+          backgroundColor: hexAlpha(s.meta?.color || '#3b82f6', 0.1),
           tension: 0.3,
         }]
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: true, maintainAspectRatio: false,
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -377,7 +409,7 @@ async function openModal(seriesId) {
         }
       }
     });
-  }, 100);
+  }, 50);
 }
 
 function closeModal(e) {
@@ -388,6 +420,7 @@ function closeModalDirect() {
   if (charts['modal']) { charts['modal'].destroy(); delete charts['modal']; }
 }
 
+// ── Category filter ───────────────────────────────────────────────────────
 document.getElementById('cat-nav').addEventListener('click', e => {
   if (!e.target.classList.contains('cat-btn')) return;
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -398,6 +431,7 @@ document.getElementById('cat-nav').addEventListener('click', e => {
   });
 });
 
+// ── Utilities ─────────────────────────────────────────────────────────────
 function formatValue(val, prefix, suffix) {
   if (val == null) return 'N/A';
   const abs = Math.abs(val);
@@ -415,7 +449,6 @@ function formatDate(dateStr) {
 }
 
 function hexAlpha(hex, alpha) {
-  if (!hex || hex.length < 7) return `rgba(59,130,246,${alpha})`;
   const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
   return `rgba(${r},${g},${b},${alpha})`;
 }
@@ -431,7 +464,10 @@ function categoryEmoji(cat) {
   return map[cat] || '📌';
 }
 
+// ── Keyboard shortcut: Escape closes modal ────────────────────────────────
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+// ── Boot ──────────────────────────────────────────────────────────────────
 loadData();
 </script>
 </body>
